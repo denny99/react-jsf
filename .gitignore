@@ -168,5 +168,4 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-lib/*
 .idea/inspectionProfiles/
