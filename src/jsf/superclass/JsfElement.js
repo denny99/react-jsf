@@ -86,8 +86,10 @@ export default class JsfElement extends React.Component {
    */
   handleAjax() {
     let props = {};
+    // TODO merge existing properties
     if (this.ajax) {
       switch (this.ajax.props.event) {
+          // TODO like angular ajax calls should only be triggered when no error exists or ajax is immediate
         case 'blur':
           props.onBlur = this.ajax.call;
           break;
