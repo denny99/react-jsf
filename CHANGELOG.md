@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/denny99/react-jsf/compare/v1.1.3...v1.2.0) (2018-04-23)
+
+
+### Bug Fixes
+
+* exported UiComp ([aa51a5a](https://github.com/denny99/react-jsf/commit/aa51a5a))
+
+
+### Features
+
+* ui composition ([c02fc57](https://github.com/denny99/react-jsf/commit/c02fc57))
+
+
+
 <a name="1.1.3"></a>
 ## [1.1.3](https://github.com/denny99/react-jsf/compare/v1.1.2...v1.1.3) (2018-04-04)
 
