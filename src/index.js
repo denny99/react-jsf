@@ -49,3 +49,4 @@ export {default as ConverterException} from './jsf/exceptions/ConverterException
 
 // superclasses
 export {default as Converter} from './jsf/superclass/Converter';
+export {default as UiComposition} from './jsf/superclass/UiComposition';
