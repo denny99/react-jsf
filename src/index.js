@@ -34,6 +34,7 @@ export {default as IcePanelPopup} from './jsf/components/IcePanelPopup';
 export {default as IcePanelTooltip} from './jsf/components/IcePanelTooltip';
 export {default as IceSelectBooleanCheckbox} from './jsf/components/IceSelectBooleanCheckbox';
 export {default as UIFragment} from './jsf/components/UIFragment';
+export {default as UiDefine} from './jsf/components/UiDefine';
 export {default as UiRepeat} from './jsf/components/UiRepeat';
 
 // jsf objects
