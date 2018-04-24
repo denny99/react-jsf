@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import JsfElement from '../superclass/JsfElement';
+import Output from '../superclass/Output';
 
-export default class HOutputLabel extends JsfElement {
+export default class HOutputLabel extends Output {
   static propTypes = {
     id: PropTypes.string,
     for: PropTypes.string,
@@ -24,4 +24,6 @@ export default class HOutputLabel extends JsfElement {
 
 HOutputLabel.contextTypes = {
   getFormId: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

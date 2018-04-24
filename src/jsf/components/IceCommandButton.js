@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HCommandButton from './HCommandButton';
+import HForm from './HForm';
 
 export default class IceCommandButton extends React.Component {
   static propTypes = {
@@ -27,4 +28,7 @@ export default class IceCommandButton extends React.Component {
 
 HCommandButton.contextTypes = {
   getFormId: PropTypes.func,
+  form: PropTypes.instanceOf(HForm),
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

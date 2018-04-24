@@ -20,6 +20,7 @@ export default class HSelectOneMenu extends SelectOne {
                 name={this.state.id} size={this.props.size}
                 style={this.props.style}
                 onChange={this.handleChange}
+                onBlur={this.validate}
         >
           {this.props.children}
         </select>);
@@ -27,12 +28,16 @@ export default class HSelectOneMenu extends SelectOne {
 }
 
 HSelectOneMenu.contextTypes = {
-  updateMessages: PropTypes.func,
+  registerInput: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
   getFormId: PropTypes.func,
   property: PropTypes.func,
 };
 HSelectOneMenu.childContextTypes = {
-  updateMessages: PropTypes.func,
+  registerInput: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
   getFormId: PropTypes.func,
   property: PropTypes.func,
   currentValue: PropTypes.any,

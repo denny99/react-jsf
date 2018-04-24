@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '../superclass/Input';
+import HBody from './HBody';
+import HForm from './HForm';
 
 export default class HInputText extends Input {
   static propTypes = {
@@ -51,7 +53,8 @@ export default class HInputText extends Input {
                style={this.props.style}
                className={this.props.styleClass}
                value={this.value}
-               onChange={this.handleChange}>
+               onChange={this.handleChange}
+               onBlur={this.validate}>
         </input>);
 
     let props = this.handleAjax();
@@ -61,7 +64,11 @@ export default class HInputText extends Input {
 }
 
 HInputText.contextTypes = {
-  updateMessages: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
+  registerInput: PropTypes.func,
   getFormId: PropTypes.func,
   property: PropTypes.func,
+  all: PropTypes.instanceOf(HBody),
+  form: PropTypes.instanceOf(HForm),
 };

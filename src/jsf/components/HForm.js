@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ObjectTraverser from '../util/ObjectTraverser';
+import JsfCore from '../superclass/JsfCore';
+import HBody from './HBody';
 
-export default class HForm extends React.Component {
+export default class HForm extends JsfCore {
   static propTypes = {
     id: PropTypes.string,
     styleClass: PropTypes.string,
@@ -13,16 +15,17 @@ export default class HForm extends React.Component {
     super(props, context);
 
     this.state = {
-      messageProps: {},
+      inputs: {},
       data: this.props.data,
-      activeElement: null,
     };
 
-    this.updateMessages = this.updateMessages.bind(this);
+    this.jsfElements = [];
+
+    this.registerInput = this.registerInput.bind(this);
+    this.registerAtForm = this.registerAtForm.bind(this);
     this.getFormId = this.getFormId.bind(this);
     this.property = this.property.bind(this);
-    this.initMessage = this.initMessage.bind(this);
-    this.getMessage = this.getMessage.bind(this);
+    this.getInput = this.getInput.bind(this);
   }
 
   render() {
@@ -35,20 +38,10 @@ export default class HForm extends React.Component {
 
   /**
    * @param {string} forId
+   * @return {Input}
    */
-  initMessage(forId) {
-    this.state.messageProps[forId] = {
-      message: '',
-      show: false,
-    };
-  }
-
-  /**
-   * @param {string} forId
-   * @return {{message: string, show: boolean}}
-   */
-  getMessage(forId) {
-    return this.state.messageProps[forId];
+  getInput(forId) {
+    return this.state.inputs[forId] || {hasError: false};
   }
 
   /**
@@ -71,14 +64,14 @@ export default class HForm extends React.Component {
 
   getChildContext() {
     return {
-      updateMessages: this.updateMessages,
+      registerInput: this.registerInput,
+      registerAtForm: this.registerAtForm,
+      registerAtAll: this.context.registerAtAll,
       getFormId: this.getFormId,
       property: this.property,
       all: this.context.all,
       form: this,
-      initMessage: this.initMessage,
-      getMessage: this.getMessage,
-      activeElement: this.state.activeElement,
+      getInput: this.getInput,
     };
   }
 
@@ -99,49 +92,92 @@ export default class HForm extends React.Component {
    * checks for any error inside of the form
    * @return {boolean}
    */
-  hasError() {
-    for (let key in this.state.messageProps) {
-      if (this.state.messageProps.hasOwnProperty(key)) {
-        if (this.state.messageProps[key].show) {
-          // active element is all, so render whole form
-          this.setState({
-            messageProps: this.state.messageProps,
-            activeElement: 'all',
-          });
-          return true;
+  async validateInputs() {
+    let valid = true;
+    for (const key in this.state.inputs) {
+      if (this.state.inputs.hasOwnProperty(key)) {
+        let input = this.state.inputs[key];
+        let response = await input.validate();
+
+        if (response.hasError) {
+          valid = false;
         }
       }
     }
-    return false;
+
+    return valid;
+  }
+
+  /**
+   * validate form elements
+   * @param {boolean} [skipInputs]
+   * @returns {Promise<boolean>} true if ok
+   */
+  async validate(skipInputs) {
+    let valid = true;
+
+    // grab events and validate
+
+    if (!skipInputs) {
+      valid = await this.validateInputs();
+    }
+
+    if (valid) {
+      const result = await this.triggerEvent('postValidate');
+      valid = !result.error;
+      let input = this.getInput(result.elementId);
+      input.hasError = result.error;
+      input.errorMessage = result.message;
+    }
+
+    this.setState({
+      inputs: this.state.inputs,
+    });
+
+    return valid;
   }
 
   /**
    *
-   * @param {JsfElement} element
-   * @param {boolean} [skipRender]
+   * @param {Input} element
    */
-  updateMessages(element, skipRender) {
-    this.state.messageProps[element.props.id] = {
-      message: element.errorMessage,
-      show: element.hasError,
-    };
-    if (!skipRender) {
-      // update messages and mark current used element to prevent rendering of all messages
-      this.setState({
-        messageProps: this.state.messageProps,
-        activeElement: element.props.id,
-      });
+  registerInput(element) {
+    this.state.inputs[element.props.id] = element;
+    this.setState({
+      inputs: this.state.inputs,
+    });
+  }
+
+  registerAtForm(element) {
+    this.jsfElements.push(element);
+  }
+
+  async jsfOnRender(skipChildren) {
+    try {
+      if (!skipChildren) {
+        for (const element of this.jsfElements) {
+          await element.jsfOnRender();
+        }
+      }
+      await this.validate(true);
+    } catch (e) {
+      console.error(e);
     }
   }
 }
 
 HForm.childContextTypes = {
-  initMessage: PropTypes.func,
-  getMessage: PropTypes.func,
-  updateMessages: PropTypes.func,
+  getInput: PropTypes.func,
+  registerInput: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
   getFormId: PropTypes.func,
   property: PropTypes.func,
-  all: PropTypes.object,
+  all: PropTypes.instanceOf(HBody),
   form: PropTypes.instanceOf(HForm),
-  activeElement: PropTypes.string,
+};
+
+HForm.contextTypes = {
+  registerAtAll: PropTypes.func,
+  all: PropTypes.instanceOf(HBody),
 };

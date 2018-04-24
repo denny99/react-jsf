@@ -26,7 +26,9 @@ export default class HInputHidden extends Input {
 }
 
 HInputHidden.contextTypes = {
-  updateMessages: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
+  registerInput: PropTypes.func,
   getFormId: PropTypes.func,
   property: PropTypes.func,
 };

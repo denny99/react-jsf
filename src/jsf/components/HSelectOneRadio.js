@@ -28,13 +28,17 @@ export default class HSelectOneRadio extends SelectOne {
 }
 
 HSelectOneRadio.contextTypes = {
-  updateMessages: PropTypes.func,
+  registerInput: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
   getFormId: PropTypes.func,
   property: PropTypes.func,
 };
 
 HSelectOneRadio.childContextTypes = {
-  updateMessages: PropTypes.func,
+  registerInput: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
   getFormId: PropTypes.func,
   property: PropTypes.func,
   currentValue: PropTypes.any,

@@ -47,4 +47,6 @@ export default class IcePanelGroup extends JsfElement {
 
 IcePanelGroup.contextTypes = {
   getFormId: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

@@ -21,7 +21,8 @@ export default class IceSelectBooleanCheckbox extends React.Component {
 }
 
 IceSelectBooleanCheckbox.contextTypes = {
-  updateMessages: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
   getFormId: PropTypes.func,
   property: PropTypes.func,
 };

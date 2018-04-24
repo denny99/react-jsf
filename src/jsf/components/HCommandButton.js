@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import JsfElement from '../superclass/JsfElement';
+import HForm from './HForm';
 
 export default class HCommandButton extends JsfElement {
   static propTypes = {
@@ -28,13 +29,17 @@ export default class HCommandButton extends JsfElement {
     // jsf used form, but we don't wanna submit them in react
     e.preventDefault();
     if (!this.props.immediate) {
+      // check if form is ok
+      if (!await this.context.form.validate()) {
+        return;
+      }
+
       if (this.ajax && this.ajax.props.event === 'click') {
-        await this.ajax.call();
+        await this.ajax.call(this);
       }
     }
     // argument might be undefined
     this.props.action(this.props.actionArgument);
-
   }
 
   render() {
@@ -49,4 +54,7 @@ export default class HCommandButton extends JsfElement {
 
 HCommandButton.contextTypes = {
   getFormId: PropTypes.func,
+  form: PropTypes.instanceOf(HForm),
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

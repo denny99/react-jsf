@@ -67,4 +67,6 @@ export default class IcePanelPopup extends JsfElement {
 }
 IcePanelPopup.contextTypes = {
   getFormId: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

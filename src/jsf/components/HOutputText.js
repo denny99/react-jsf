@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import JsfElement from '../superclass/JsfElement';
+import Output from '../superclass/Output';
 
-export default class HOutputText extends JsfElement {
+export default class HOutputText extends Output {
   static propTypes = {
     id: PropTypes.string,
     styleClass: PropTypes.string,
@@ -30,4 +30,6 @@ export default class HOutputText extends JsfElement {
 
 HOutputText.contextTypes = {
   getFormId: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

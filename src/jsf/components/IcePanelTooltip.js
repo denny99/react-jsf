@@ -49,4 +49,6 @@ export default class IcePanelTooltip extends JsfElement {
 
 IcePanelTooltip.contextTypes = {
   getFormId: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

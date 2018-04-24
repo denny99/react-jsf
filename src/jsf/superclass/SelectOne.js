@@ -15,21 +15,11 @@ export default class SelectOne extends Input {
     if (this.value === null || this.value === '') {
       let selectedChild = React.Children.toArray(this.props.children)[0];
       if (selectedChild.type === FSelectItem) {
-        if (selectedChild.props.noSelectionOption) {
-          this.hasError = true;
-          this.errorMessage = this.props.requiredMessage;
-        }
         this.value = selectedChild.props.value;
       }
       if (selectedChild.type === FSelectItems) {
-        if (selectedChild.props.value[0].noSelectionOption) {
-          this.hasError = true;
-          this.errorMessage = this.props.requiredMessage;
-        }
         this.value = selectedChild.props.value[0].value;
       }
-
-      this.context.updateMessages(this, true);
     }
   }
 
@@ -39,13 +29,14 @@ export default class SelectOne extends Input {
 
   getChildContext() {
     return {
-      updateMessages: this.context.updateMessages,
       getFormId: (key) => {
         return key ? `${this.state.id}:${key}` : this.state.id;
       },
       property: this.context.property,
       currentValue: this.getCurrentValue,
       parent: this,
+      registerAtAll: this.context.registerAtAll,
+      registerAtForm: this.context.registerAtForm,
     };
   }
 }

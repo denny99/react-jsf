@@ -21,7 +21,6 @@ export default class FSelectItems extends React.Component {
 }
 
 FSelectItems.contextTypes = {
-  updateMessages: PropTypes.func,
   getFormId: PropTypes.func,
   property: PropTypes.func,
 };

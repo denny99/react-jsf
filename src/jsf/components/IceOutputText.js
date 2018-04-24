@@ -24,4 +24,6 @@ export default class IceOutputText extends React.Component {
 IceOutputText.contextTypes = {
   getFormId: PropTypes.func,
   property: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

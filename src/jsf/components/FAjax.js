@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import HForm from './HForm';
+import HBody from './HBody';
 
 export default class FAjax extends React.Component {
   static propTypes = {
@@ -23,11 +25,12 @@ export default class FAjax extends React.Component {
   }
 
   /**
-   *
+   * @param {JsfCore} caller
    * @return {Promise<void>}
    */
-  async call() {
+  async call(caller) {
     let obj;
+    let renderElem;
     switch (this.props.execute) {
       case '@form':
         obj = this.context.form;
@@ -39,11 +42,26 @@ export default class FAjax extends React.Component {
         obj = this.props.this;
         break;
     }
-    await this.props.listener(obj, this.props.render);
+
+    switch (this.props.render) {
+        // @all is no longer useful, the ajax function itself is contained in the page component itself which is basically @all
+      case '@all':
+        renderElem = this.context.all;
+        break;
+      case '@form':
+        renderElem = this.context.form;
+        break;
+      case '@this':
+      default:
+        renderElem = caller;
+        break;
+    }
+
+    await this.props.listener(obj, renderElem);
   }
 }
 
 FAjax.contextTypes = {
-  all: PropTypes.object,
-  form: PropTypes.object,
+  all: PropTypes.instanceOf(HBody),
+  form: PropTypes.instanceOf(HForm),
 };

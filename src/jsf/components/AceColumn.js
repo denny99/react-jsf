@@ -18,4 +18,6 @@ export default class AceColumn extends JsfElement {
 
 AceColumn.contextTypes = {
   getFormId: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

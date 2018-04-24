@@ -100,4 +100,6 @@ export default class AceTooltip extends JsfElement {
 
 AceTooltip.contextTypes = {
   getFormId: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

@@ -32,7 +32,8 @@ export default class FSelectItem extends React.Component {
                    id={radioId}
                    name={radioId} type="radio"
                    value={this.props.value}
-                   onChange={this.context.parent.handleChange}/>
+                   onChange={this.context.parent.handleChange}
+                   onBlur={this.context.parent.validate}/>
             <label
                 htmlFor={radioId}>{this.props.itemLabel}</label>
           </td>
@@ -50,7 +51,6 @@ export default class FSelectItem extends React.Component {
 }
 
 FSelectItem.contextTypes = {
-  updateMessages: PropTypes.func,
   getFormId: PropTypes.func,
   property: PropTypes.func,
   currentValue: PropTypes.any,

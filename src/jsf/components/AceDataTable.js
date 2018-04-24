@@ -36,6 +36,8 @@ export default class AceDataTable extends JsfElement {
       next: this.next,
       last: this.last,
       setPage: this.setPage,
+      registerAtAll: this.context.registerAtAll,
+      registerAtForm: this.context.registerAtForm,
     };
   }
 
@@ -138,8 +140,12 @@ AceDataTable.childContextTypes = {
   next: PropTypes.func,
   last: PropTypes.func,
   setPage: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };
 
 AceDataTable.contextTypes = {
   getFormId: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

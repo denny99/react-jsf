@@ -17,9 +17,6 @@ export default class HSelectBooleanCheckbox extends Input {
     if (_.isEmpty(this.value)) {
       this.value = false;
     }
-
-    await this.componentDidUpdate();
-    this.initialValidation = false;
   }
 
   async handleChange(event) {
@@ -34,12 +31,15 @@ export default class HSelectBooleanCheckbox extends Input {
     return (<input className={this.props.styleClass} id={this.state.id}
                    name={this.state.id}
                    type="checkbox" onChange={this.handleChange}
+                   onBlur={this.validate}
                    defaultValue={this.value || false}/>);
   }
 }
 
 HSelectBooleanCheckbox.contextTypes = {
-  updateMessages: PropTypes.func,
+  registerInput: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
   getFormId: PropTypes.func,
   property: PropTypes.func,
 };

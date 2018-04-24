@@ -22,4 +22,6 @@ export default class HGraphicImage extends JsfElement {
 
 HGraphicImage.contextTypes = {
   getFormId: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

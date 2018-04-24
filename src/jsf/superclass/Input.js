@@ -1,21 +1,19 @@
 import React from 'react';
 import FValidateRegex from '../components/FValidateRegex';
-import JsfElement from './JsfElement';
 import * as _ from 'lodash';
+import Output from './Output';
 
-export default class Input extends JsfElement {
+export default class Input extends Output {
   constructor(props, context) {
     super(props, context);
 
     this.hasError = false;
-    this.externalError = false;
-    this.initialValidation = true;
     this.errorMessage = '';
 
     this.handleChange = this.handleChange.bind(this);
     this.validate = this.validate.bind(this);
-    this.setError = this.setError.bind(this);
-    this.setExternalError = this.setExternalError.bind(this);
+
+    context.registerInput(this);
   }
 
   /**
@@ -46,7 +44,6 @@ export default class Input extends JsfElement {
           this.converter.getAsObject(o) :
           o;
     } catch (e) {
-      this.setError(true, this.props.converterMessage);
     } finally {
       // only a property annotation has to write into the context object (e.g.: bla.blub)
       if (typeof this.props.value === 'string') {
@@ -59,45 +56,12 @@ export default class Input extends JsfElement {
     if (_.isEmpty(this.value)) {
       this.value = '';
     }
-
-    await this.componentDidUpdate();
-    this.initialValidation = false;
   }
 
-  async componentDidUpdate() {
-    // only do further validations if format is correct
-    if (!this.converterError() && !this.externalError) {
-      let response = await this.validate();
+  async jsfOnRender() {
+    await super.jsfOnRender();
 
-      if (this.hasError !== response.hasError ||
-          this.errorMessage !== response.errorMessage) {
-        this.setError(response.hasError, response.errorMessage);
-      } else {
-        this.hasError = response.hasError;
-        this.errorMessage = response.errorMessage;
-      }
-    }
-  }
-
-  /**
-   *
-   * @param {boolean} hasError
-   * @param {string} [message]
-   */
-  setExternalError(hasError, message) {
-    this.externalError = hasError;
-    this.setError(hasError, message);
-  }
-
-  /**
-   *
-   * @param {boolean} hasError
-   * @param {string} [message]
-   */
-  setError(hasError, message) {
-    this.hasError = hasError;
-    this.errorMessage = message ? message : '';
-    this.context.updateMessages(this, this.initialValidation);
+    await this.validate();
   }
 
   /**
@@ -109,7 +73,7 @@ export default class Input extends JsfElement {
     this.value = event.target.value;
 
     if (this.ajax && this.ajax.props.event === 'change') {
-      await this.ajax.call();
+      await this.ajax.call(this);
     }
 
     // add on change event
@@ -127,6 +91,11 @@ export default class Input extends JsfElement {
     let hasError = false;
     let message = 'Error in the input field!';
     let currentValue = this.value;
+
+    if (this.converterError()) {
+      hasError = true;
+      message = this.props.converterMessage;
+    }
 
     // check for validation children
     if (!hasError) {
@@ -164,9 +133,14 @@ export default class Input extends JsfElement {
       }
     }
 
+    this.hasError = hasError;
+    this.errorMessage = hasError ? message : '';
+
+    this.context.registerInput(this);
+
     return {
-      hasError: hasError,
-      errorMessage: hasError ? message : '',
+      hasError: this.hasError,
+      errorMessage: this.errorMessage,
     };
   }
 }

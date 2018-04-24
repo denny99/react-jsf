@@ -114,3 +114,8 @@ export default class AceDialog extends JsfElement {
     );
   }
 };
+
+AceDialog.contextTypes = {
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
+};

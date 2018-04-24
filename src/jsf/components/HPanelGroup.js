@@ -36,4 +36,6 @@ export default class HPanelGroup extends JsfElement {
 
 HPanelGroup.contextTypes = {
   getFormId: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
 };

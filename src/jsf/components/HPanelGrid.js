@@ -27,3 +27,8 @@ export default class HPanelGrid extends React.Component {
     );
   }
 }
+
+HPanelGrid.contextTypes = {
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
+};
