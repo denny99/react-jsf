@@ -34,8 +34,8 @@ export default class HCommandButton extends JsfElement {
         return;
       }
 
-      if (this.ajax && this.ajax.props.event === 'click') {
-        await this.ajax.call(this);
+      if (this.ajax('click')) {
+        await this.ajax('click').call(this);
       }
     }
     // argument might be undefined

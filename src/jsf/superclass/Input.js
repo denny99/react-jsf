@@ -72,8 +72,8 @@ export default class Input extends Output {
   async handleChange(event) {
     this.value = event.target.value;
 
-    if (this.ajax && this.ajax.props.event === 'change') {
-      await this.ajax.call(this);
+    if (this.ajax('change')) {
+      await this.ajax('change').call(this);
     }
 
     // add on change event
@@ -99,7 +99,7 @@ export default class Input extends Output {
 
     // check for validation children
     if (!hasError) {
-      for (let child of this.state.children) {
+      for (let child of this.validators) {
         if (child instanceof FValidateRegex) {
           // do regexp validation
           if (!child.validate(currentValue)) {
