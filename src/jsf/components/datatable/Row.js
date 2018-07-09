@@ -17,6 +17,28 @@ export default class Row extends React.Component {
 
     this.state = {};
     this.state[this.props.varName] = this.props.var;
+
+    this.getRowId = this.getRowId.bind(this);
+  }
+
+  getRowId(id) {
+    if (id) {
+      return this.props.parentId + ':' + this.props.index + '' + id;
+    }
+    return '';
+  }
+
+  getChildContext() {
+    return {
+      getFormId: this.getRowId,
+      first: this.first,
+      prev: this.prev,
+      next: this.next,
+      last: this.last,
+      setPage: this.setPage,
+      registerAtAll: this.context.registerAtAll,
+      registerAtForm: this.context.registerAtForm,
+    };
   }
 
   render() {
@@ -39,3 +61,20 @@ export default class Row extends React.Component {
     );
   }
 }
+
+Row.childContextTypes = {
+  getFormId: PropTypes.func,
+  first: PropTypes.func,
+  prev: PropTypes.func,
+  next: PropTypes.func,
+  last: PropTypes.func,
+  setPage: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
+};
+
+Row.contextTypes = {
+  getFormId: PropTypes.func,
+  registerAtAll: PropTypes.func,
+  registerAtForm: PropTypes.func,
+};

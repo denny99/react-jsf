@@ -84,7 +84,7 @@ export default class HForm extends JsfCore {
     if (id) {
       return `${this.props.id}:${id}`;
     } else {
-      return this.props.id;
+      return '';
     }
   }
 
