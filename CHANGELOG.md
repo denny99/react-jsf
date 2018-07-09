@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/denny99/react-jsf/compare/v1.2.2...v1.3.0) (2018-07-09)
+
+
+### Bug Fixes
+
+* calc id inside of datatable ([bc11e3b](https://github.com/denny99/react-jsf/commit/bc11e3b))
+
+
+### Features
+
+* moved ajax handling up to core ([cc206f9](https://github.com/denny99/react-jsf/commit/cc206f9))
+
+
+
 <a name="1.2.2"></a>
 ## [1.2.2](https://github.com/denny99/react-jsf/compare/v1.2.1...v1.2.2) (2018-04-24)
 
