@@ -23,7 +23,7 @@ export default class Row extends React.Component {
 
   getRowId(id) {
     if (id) {
-      return this.props.parentId + ':' + this.props.index + '' + id;
+      return this.props.parentId + ':' + this.props.index + ':' + id;
     }
     return '';
   }

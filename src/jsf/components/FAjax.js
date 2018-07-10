@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import HForm from './HForm';
-import HBody from './HBody';
 
 export default class FAjax extends React.Component {
   static propTypes = {
@@ -62,6 +60,6 @@ export default class FAjax extends React.Component {
 }
 
 FAjax.contextTypes = {
-  all: PropTypes.instanceOf(HBody),
-  form: PropTypes.instanceOf(HForm),
+  all: PropTypes.any,
+  form: PropTypes.any,
 };

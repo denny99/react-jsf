@@ -6,7 +6,7 @@ import FConvertNumber from '../components/FConvertNumber';
 import FFacet from '../components/FFacet';
 import FValidateRegex from '../components/FValidateRegex';
 
-export default class JsfCore extends React.Component {
+export class JsfCore extends React.Component {
   constructor(props, context) {
     super(props, context);
 

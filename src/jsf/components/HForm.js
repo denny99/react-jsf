@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ObjectTraverser from '../util/ObjectTraverser';
-import JsfCore from '../superclass/JsfCore';
+import {JsfCore} from '../superclass/JsfCore';
 import HBody from './HBody';
 
 export default class HForm extends JsfCore {

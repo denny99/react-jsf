@@ -1,5 +1,5 @@
 import React from 'react';
-import JsfCore from './JsfCore';
+import {JsfCore} from './JsfCore';
 
 export default class JsfElement extends JsfCore {
   constructor(props, context) {

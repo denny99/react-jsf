@@ -36,7 +36,7 @@ export default class IcePanelGroup extends JsfElement {
           <div ref={(div) => {
             this.div = div;
           }} className={`icePnlGrp ${this.props.styleClass}`}
-               id={this.props.id}
+               id={this.state.id}
                onMouseOver={this.onMouseOver}
                style={this.props.style}>{this.props.children}</div>);
     } else {
